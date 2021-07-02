@@ -1,10 +1,10 @@
 package com.example.cargomas.bootstrap;
 
-import com.example.cargomas.domain.Komponent;
-import com.example.cargomas.domain.Rower;
-import com.example.cargomas.domain.TypKomponentu;
+import com.example.cargomas.domain.*;
 import com.example.cargomas.repositories.KomponentRepository;
+import com.example.cargomas.repositories.RegionRepository;
 import com.example.cargomas.repositories.RowerRepository;
+import com.example.cargomas.repositories.SerwisRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -14,18 +14,61 @@ import java.util.Set;
 @Component
 public class Bootstrap implements CommandLineRunner {
 
-    private final KomponentRepository komponentRepository;
     private final RowerRepository rowerRepository;
+    private final KomponentRepository komponentRepository;
+    
+    private final SerwisRepository serwisRepository;
+    private final RegionRepository regionRepository;
 
-    public Bootstrap(KomponentRepository komponentRepository, RowerRepository rowerRepository) {
-        this.komponentRepository = komponentRepository;
+    public Bootstrap(RowerRepository rowerRepository, KomponentRepository komponentRepository, SerwisRepository serwisRepository, RegionRepository regionRepository) {
         this.rowerRepository = rowerRepository;
+        this.komponentRepository = komponentRepository;
+        this.serwisRepository = serwisRepository;
+        this.regionRepository = regionRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        
         loadRowery();
         loadKomponenty();
+
+        loadRegiony();
+        loadSerwisy();
+    }
+
+    private void loadRegiony() {
+        Set<Region> regiony = new HashSet<>();
+
+        Region region1 = new Region();
+        region1.setNazwa("Region Warszawa Polnoc");
+        regiony.add(region1);
+
+        Region region2 = new Region();
+        region2.setNazwa("Region Warszawa Poludnie");
+        regiony.add(region2);
+        
+        regionRepository.saveAll(regiony);
+
+        System.out.println("Regiony wczytane w ilości " + regionRepository.count());
+    }
+
+    private void loadSerwisy() {
+        Set<Serwis> serwisy = new HashSet<>();
+        
+        Serwis serwis1 = new Serwis();
+        serwis1.setNazwa("Serwis Warszawa Polnoc");
+        serwis1.setRegion(regionRepository.findByNazwa("Region Warszawa Polnoc"));
+        serwisy.add(serwis1);
+
+        Serwis serwis2 = new Serwis();
+        serwis2.setNazwa("Serwis Warszawa Poludnie");
+        serwis2.setRegion(regionRepository.findByNazwa("Region Warszawa Poludnie"));
+        serwisy.add(serwis2);
+
+        serwisRepository.saveAll(serwisy);
+
+        System.out.println("Serwisy wczytane w ilości " + serwisRepository.count());
     }
 
     private void loadRowery() {
