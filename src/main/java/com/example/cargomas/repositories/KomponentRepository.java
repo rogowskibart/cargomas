@@ -8,4 +8,5 @@ public interface KomponentRepository extends JpaRepository<Komponent, Long> {
     Komponent findByNazwa(String nazwa);
 
     Komponent findByKodProducenta(String kodProducenta);
+
 }
