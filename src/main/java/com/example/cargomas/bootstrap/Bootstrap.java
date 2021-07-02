@@ -32,12 +32,28 @@ public class Bootstrap implements CommandLineRunner {
         Set<Rower> rowery = new HashSet<>();
 
         Rower rower1 = new Rower();
-        rower1.setNumerRoweru(1);
+        rower1.setNumerRoweru(101);
         rower1.setCzyElektryczny(false);
-        rower1.setCenaZaGodzine(50);
+        rower1.setCenaZaGodzine(57);
         rower1.setUdzwigSkrzyni(80);
         rower1.setLiczbaMiejscSiedzacyhWSkrzyni(2);
         rowery.add(rower1);
+
+        Rower rower2 = new Rower();
+        rower2.setNumerRoweru(102);
+        rower2.setCzyElektryczny(true);
+        rower2.setCenaZaGodzine(80);
+        rower2.setUdzwigSkrzyni(100);
+        rower2.setLiczbaMiejscSiedzacyhWSkrzyni(4);
+        rowery.add(rower2);
+
+        Rower rower3 = new Rower();
+        rower3.setNumerRoweru(103);
+        rower3.setCzyElektryczny(false);
+        rower3.setCenaZaGodzine(45);
+        rower3.setUdzwigSkrzyni(60);
+        rower3.setLiczbaMiejscSiedzacyhWSkrzyni(2);
+        rowery.add(rower3);
 
         rowerRepository.saveAll(rowery);
 
@@ -52,7 +68,7 @@ public class Bootstrap implements CommandLineRunner {
         oponaPrzednia1.setNazwa("Przednia opona 20 cali");
         oponaPrzednia1.setProducent("Schwalbe");
         oponaPrzednia1.setTypKomponentu(TypKomponentu.OPONA);
-        oponaPrzednia1.setRower(rowerRepository.findByNumerRoweru(1));
+        oponaPrzednia1.setRower(rowerRepository.findByNumerRoweru(101));
         komponenty.add(oponaPrzednia1);
         
         Komponent detka = new Komponent();
@@ -60,6 +76,7 @@ public class Bootstrap implements CommandLineRunner {
         detka.setNazwa("Detka 28 cali");
         detka.setProducent("Continental");
         detka.setTypKomponentu(TypKomponentu.DETKA);
+        detka.setRower(rowerRepository.findByNumerRoweru(101));
         komponenty.add(detka);
 
         Komponent koloTylne = new Komponent();
@@ -67,6 +84,7 @@ public class Bootstrap implements CommandLineRunner {
         koloTylne.setNazwa("Tylne kolo aluminium 28 cali");
         koloTylne.setProducent("Mavic");
         koloTylne.setTypKomponentu(TypKomponentu.KOLO_TYL);
+        koloTylne.setRower(rowerRepository.findByNumerRoweru(102));
         komponenty.add(koloTylne);
 
         Komponent hamulecPrzedni = new Komponent();
@@ -74,6 +92,7 @@ public class Bootstrap implements CommandLineRunner {
         hamulecPrzedni.setNazwa("Hamulec przedni V-Brake");
         hamulecPrzedni.setProducent("Tektro");
         hamulecPrzedni.setTypKomponentu(TypKomponentu.HAMULEC_PRZOD);
+        hamulecPrzedni.setRower(rowerRepository.findByNumerRoweru(103));
         komponenty.add(hamulecPrzedni);
 
         komponentRepository.saveAll(komponenty);
