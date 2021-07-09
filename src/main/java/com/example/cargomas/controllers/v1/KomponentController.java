@@ -25,8 +25,13 @@ public class KomponentController {
         return new ResponseEntity<>(new KomponentListDTO(komponentService.getAllKomponents()), HttpStatus.OK);
     }
 
-    @GetMapping("{kodProducenta}")
+    @GetMapping("/kod/{kodProducenta}")
     public ResponseEntity<KomponentDTO> getKomponentByKodProducenta(@PathVariable String kodProducenta) {
         return new ResponseEntity<>(komponentService.getKomponentByKodProducenta(kodProducenta), HttpStatus.OK);
+    }
+
+    @GetMapping("/rower/{id}")
+    public ResponseEntity<KomponentListDTO> getKomponentByRower(@PathVariable String id) {
+        return new ResponseEntity<>(new KomponentListDTO(komponentService.getKomponentsByRowerId(Long.parseLong(id))), HttpStatus.OK);
     }
 }
